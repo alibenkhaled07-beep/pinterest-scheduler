@@ -1,26 +1,15 @@
 import os
-from fastapi import Request, HTTPException
-
-async def run_scheduled(request: Request):
-    auth = request.headers.get("Authorization")
-    if auth != f"Bearer {os.getenv('CRON_SECRET')}":
-        raise HTTPException(status_code=401, detail="Unauthorized")
-import os
-from fastapi import FastAPI, Request
 import requests
+from fastapi import Request
+from fastapi.responses import JSONResponse
 
-app = FastAPI()
+CRON_SECRET = os.getenv("CRON_SECRET")
 
-SECRET = os.getenv("SCHEDULER_SECRET")
+async def handler(request: Request):
+    auth = request.headers.get("authorization")
 
-@app.get("/api/run-scheduled")
-async def run_scheduled(request: Request):
-    token = request.headers.get("x-scheduler-token")
-    if token != SECRET:
-        return {"error": "Unauthorized"}
+    if auth != f"Bearer {CRON_SECRET}":
+        return JSONResponse({"error": "unauthorized"}, status_code=401)
 
-    # Call main runner
-    url = "https://" + request.url.hostname + "/api/run"
-    resp = requests.get(url).json()
-
-    return {"status": "triggered", "result": resp}
+    # CALL YOUR PINTEREST SCRIPT HERE
+    return JSONResponse({"status": "cron executed!"})
