@@ -24,10 +24,3 @@ async def run_scheduled(request: Request):
     resp = requests.get(url).json()
 
     return {"status": "triggered", "result": resp}
-import os
-from fastapi import Request, HTTPException
-
-async def verify_secret(request: Request):
-    secret = request.headers.get("authorization")
-    if secret != f"Bearer {os.getenv('CRON_SECRET')}":
-        raise HTTPException(status_code=401, detail="Unauthorized")
