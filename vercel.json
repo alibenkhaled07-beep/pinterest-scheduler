@@ -7,8 +7,8 @@
   ],
   "crons": [
     {
-      "path": "/api/run-scheduled.py",
-      "schedule": "0 */2 * * *"
+      "path": "/run-scheduled",
+      "schedule": "*/10 * * * *"
     }
   ]
 }
