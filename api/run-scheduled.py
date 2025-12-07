@@ -1,4 +1,11 @@
 import os
+from fastapi import Request, HTTPException
+
+async def run_scheduled(request: Request):
+    auth = request.headers.get("Authorization")
+    if auth != f"Bearer {os.getenv('CRON_SECRET')}":
+        raise HTTPException(status_code=401, detail="Unauthorized")
+import os
 from fastapi import FastAPI, Request
 import requests
 
