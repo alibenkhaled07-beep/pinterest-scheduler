@@ -4,5 +4,11 @@
     { "src": "/hello", "dest": "/api/hello.py" },
     { "src": "/run", "dest": "/api/app.py" },
     { "src": "/run-scheduled", "dest": "/api/run-scheduled.py" }
+  ],
+  "crons": [
+    {
+      "path": "/api/run-scheduled.py",
+      "schedule": "0 */2 * * *"
+    }
   ]
 }
