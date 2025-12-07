@@ -1,15 +1,18 @@
+# api/run-scheduled.py
 import os
-import requests
-from fastapi import Request
-from fastapi.responses import JSONResponse
+from flask import Flask, request, jsonify
 
-CRON_SECRET = os.getenv("CRON_SECRET")
+app = Flask(__name__)
 
-async def handler(request: Request):
-    auth = request.headers.get("authorization")
+@app.route("/", methods=["GET"])
+def handler():
+    auth = request.headers.get("Authorization", "")
+    expected = f"Bearer {os.environ.get('CRON_SECRET','')}"
+    if auth != expected:
+        return jsonify({"detail":"Unauthorized"}), 401
 
-    if auth != f"Bearer {CRON_SECRET}":
-        return JSONResponse({"error": "unauthorized"}, status_code=401)
+    # --- place your scheduling logic here (call scheduler.process or read CSV etc)
+    # example response:
+    return jsonify({"status":"ok","message":"scheduled run started"})
 
-    # CALL YOUR PINTEREST SCRIPT HERE
-    return JSONResponse({"status": "cron executed!"})
+# For Vercel Python serverless, file should expose `app`
