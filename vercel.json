@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "functions": {
+    "api/*.py": {
+      "runtime": "python3.11"
+    }
+  },
+  "routes": [
+    { "src": "/run-scheduled", "dest": "/api/run-scheduled.py" },
+    { "src": "/scheduler", "dest": "/api/scheduler.py" },
+    { "src": "/hello", "dest": "/api/hello.py" },
+    { "src": "/run", "dest": "/api/app.py" }
+  ]
+}
