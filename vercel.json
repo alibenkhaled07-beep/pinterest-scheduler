@@ -6,9 +6,7 @@
     }
   },
   "routes": [
-    {
-      "src": "/run",
-      "dest": "/api/app.py"
-    }
+    { "src": "/hello", "dest": "/api/hello.py" },
+    { "src": "/run",   "dest": "/api/app.py" }
   ]
 }
