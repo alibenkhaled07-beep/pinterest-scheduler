@@ -1,14 +1,10 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/*.py",
-      "use": "@vercel/python",
-      "config": {
-        "runtime": "python3.10"
-      }
+  "functions": {
+    "api/*.py": {
+      "runtime": "python3.11"
     }
-  ],
+  },
   "routes": [
     { "src": "/run-scheduled", "dest": "/api/run-scheduled.py" },
     { "src": "/hello", "dest": "/api/hello.py" }
