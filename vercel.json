@@ -6,7 +6,8 @@
     }
   },
   "routes": [
-    { "src": "/run-scheduled", "dest": "/api/run-scheduled.py" },
-    { "src": "/hello", "dest": "/api/hello.py" }
+    { "src": "/hello", "dest": "/api/hello.py" },
+    { "src": "/run", "dest": "/api/app.py" },
+    { "src": "/run-scheduled", "dest": "/api/run-scheduled.py" }
   ]
 }
